@@ -80,9 +80,9 @@ ul { list-style: none; }
 #loader {
   position: fixed; inset: 0; z-index: 9999; background: var(--bg);
   display: grid; place-items: center;
-  transition: opacity .6s ease, visibility .6s ease;
+  transition: opacity .4s ease, visibility .4s ease;
 }
-#loader.hide { opacity: 0; visibility: hidden; }
+#loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-box { width: min(420px, 86vw); }
 .loader-logo { font-family: var(--display); font-size: 3rem; font-weight: 800; letter-spacing: 4px; margin-bottom: 1rem; }
 .loader-logo span { color: var(--cyan); }
@@ -397,8 +397,19 @@ a.c-item:hover { border-color: var(--cyan); box-shadow: var(--shadow-glow); tran
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 /* Reveal */
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
-.reveal.visible { opacity: 1; transform: none; }
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity .6s ease-out, transform .6s cubic-bezier(.2,.8,.2,1);
+}
+.js-ready .reveal:not(.visible) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.js-ready .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
 
 /* ===== Responsive ===== */
 @media (max-width: 1080px) {

@@ -9,32 +9,41 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Boot loader ---------- */
+  document.documentElement.classList.add("js-ready");
   document.body.classList.add("loading");
   const bootLines = [
     "[ OK ] Initializing secure kernel...",
-    "[ OK ] Loading network modules...",
     "[ OK ] Establishing TLS handshake...",
-    "[ OK ] Verifying identity: Md. Hasanuzzaman",
-    "[ OK ] Access granted. Welcome.",
+    "[ OK ] Identity verified: Md. Hasanuzzaman",
+    "[ OK ] Access granted. System Online.",
   ];
   const bootEl = $("#bootText");
   let li = 0;
   const bootTimer = setInterval(() => {
-    if (li < bootLines.length) bootEl.textContent += bootLines[li++] + "\n";
-  }, 300);
+    if (li < bootLines.length && bootEl) bootEl.textContent += bootLines[li++] + "\n";
+  }, 160);
 
   let loaded = false;
   const finishLoading = () => {
     if (loaded) return;
     loaded = true;
     clearInterval(bootTimer);
-    $("#loader").classList.add("hide");
+    const loader = $("#loader");
+    if (loader) {
+      loader.classList.add("hide");
+      setTimeout(() => { loader.style.display = "none"; }, 350);
+    }
     document.body.classList.remove("loading");
     startTyping();
-    contentReady.then(() => countUp($$(".hero-stats .stat-num")));
+    if (window.refreshDynamicUI) window.refreshDynamicUI();
   };
-  window.addEventListener("load", () => setTimeout(finishLoading, reduceMotion ? 0 : 1900));
-  setTimeout(finishLoading, 4500); // safety net if external assets are slow
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    setTimeout(finishLoading, reduceMotion ? 0 : 700);
+  } else {
+    document.addEventListener("DOMContentLoaded", () => setTimeout(finishLoading, reduceMotion ? 0 : 700));
+  }
+  setTimeout(finishLoading, 1400);
 
   /* ---------- Typing effect ---------- */
   const roles = [
@@ -67,9 +76,10 @@
   /* ---------- Count up ---------- */
   function countUp(els) {
     els.forEach((el) => {
-      if (el.dataset.done) return;
-      el.dataset.done = "1";
       const target = +el.dataset.count;
+      if (isNaN(target)) return;
+      if (el.dataset.done === String(target)) return;
+      el.dataset.done = String(target);
       if (target === 0) { el.textContent = "0"; return; }
       const dur = 1400;
       let start = null;
@@ -175,33 +185,70 @@
     menuBtn.classList.remove("open"); navLinks.classList.remove("open");
   }));
 
-  /* ---------- Reveal on scroll ---------- */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add("visible");
-      countUp($$("[data-count]", e.target));
-      io.unobserve(e.target);
-    });
-  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
-  $$(".reveal").forEach((el, i) => {
-    el.style.transitionDelay = `${(i % 4) * 80}ms`;
-    io.observe(el);
-  });
+  /* ---------- Dynamic UI, Reveal on scroll & 3D tilt ---------- */
+  let revealObserver = null;
+  function refreshDynamicUI() {
+    const reveals = $$(".reveal");
+    const vh = window.innerHeight;
 
-  /* ---------- 3D tilt + spotlight on research cards ---------- */
-  if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
-    $$(".tilt").forEach((card) => {
-      card.addEventListener("pointermove", (e) => {
-        const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-        card.style.transform = `perspective(900px) rotateX(${(0.5 - py) * 10}deg) rotateY(${(px - 0.5) * 12}deg) translateY(-6px)`;
-        card.style.setProperty("--mx", `${px * 100}%`);
-        card.style.setProperty("--my", `${py * 100}%`);
-      });
-      card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+    // 1. Immediately reveal elements already near/in view
+    reveals.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < vh + 200 && rect.bottom > -100) {
+        el.classList.add("visible");
+        countUp($$("[data-count]", el));
+      }
     });
+
+    // 2. IntersectionObserver for smooth scrolling reveals
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("visible");
+          countUp($$("[data-count]", e.target));
+          revealObserver.unobserve(e.target);
+        });
+      }, { threshold: 0.05, rootMargin: "0px 0px 200px 0px" });
+    }
+
+    reveals.forEach((el, i) => {
+      if (!el.classList.contains("visible")) {
+        el.style.transitionDelay = `${(i % 4) * 60}ms`;
+        revealObserver.observe(el);
+      }
+    });
+
+    // 3. Re-bind 3D tilt on research cards
+    if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
+      $$(".tilt").forEach((card) => {
+        if (card.dataset.tiltBound) return;
+        card.dataset.tiltBound = "1";
+        card.addEventListener("pointermove", (e) => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+          card.style.transform = `perspective(900px) rotateX(${(0.5 - py) * 10}deg) rotateY(${(px - 0.5) * 12}deg) translateY(-6px)`;
+          card.style.setProperty("--mx", `${px * 100}%`);
+          card.style.setProperty("--my", `${py * 100}%`);
+        });
+        card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+      });
+    }
+
+    // 4. Update count values
+    countUp($$("[data-count]"));
   }
+
+  window.refreshDynamicUI = refreshDynamicUI;
+  refreshDynamicUI();
+
+  // Safety net: reveal all elements so content is never hidden
+  setTimeout(() => {
+    $$(".reveal").forEach((el) => {
+      el.classList.add("visible");
+      countUp($$("[data-count]", el));
+    });
+  }, 1600);
 
   /* ---------- Contact form → mailto & local inbox ---------- */
   $("#contactForm").addEventListener("submit", (e) => {

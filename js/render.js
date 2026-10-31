@@ -104,6 +104,8 @@
         <span class="m-lbl mono">Citations / Year</span>
         <div class="bars">${py.map((y) => `<div class="bar" style="--p:${((+y.count || 0) / max).toFixed(3)}"><i>${esc(y.count)}</i><span>${esc(y.year)}</span></div>`).join("")}</div>
       </div>`);
+    const metricsEl = $("metrics");
+    if (metricsEl) metricsEl.classList.add("visible");
 
     // ----- Publications -----
     set("pubList", pubs.map((x) => {
@@ -136,6 +138,11 @@
       ci("", '<path d="M12 22s-8-7.5-8-13a8 8 0 0116 0c0 5.5-8 13-8 13z"/><circle cx="12" cy="9" r="3"/>', "OFFICE", p.office));
     document.querySelectorAll('a[href*="scholar.google.com"]').forEach((a) => { if (safeUrl(p.scholar)) a.href = safeUrl(p.scholar); });
     window.SITE_EMAIL = p.email;
+
+    // Refresh dynamic UI, observe reveal animations, bind tilt
+    if (typeof window.refreshDynamicUI === "function") {
+      window.refreshDynamicUI();
+    }
   }
 
   window.SITE = null;
