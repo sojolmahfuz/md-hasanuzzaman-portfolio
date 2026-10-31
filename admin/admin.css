@@ -281,6 +281,17 @@ input, textarea, select {
   box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
 }
 
+.btn-supabase {
+  background: linear-gradient(135deg, #3ecf8e, #00b4d8);
+  color: #03140d;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(62, 207, 142, 0.3);
+}
+.btn-supabase:hover {
+  box-shadow: 0 8px 25px rgba(62, 207, 142, 0.5);
+  transform: translateY(-2px);
+}
+
 .btn-ghost {
   background: rgba(0, 240, 255, 0.05);
   border-color: var(--border-strong);
@@ -1021,3 +1032,4 @@ input, textarea, select {
   .publish-status-grid, .quick-grid, .cards-editor-grid { grid-template-columns: 1fr; }
   .form-row-2, .form-row-3 { grid-template-columns: 1fr; }
 }
+

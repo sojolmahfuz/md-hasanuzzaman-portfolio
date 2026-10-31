@@ -86,6 +86,11 @@
           <span>Save Draft</span>
         </button>
 
+        <button type="button" id="syncSupabaseBtn" class="btn btn-supabase btn-sm" title="Instantly update live site via Supabase Cloud">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Sync to Supabase</span>
+        </button>
+
         <button type="button" id="publishGithubBtn" class="btn btn-primary btn-sm" title="Commit to GitHub repo and deploy">
           <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
           <span>Publish to GitHub</span>
@@ -196,6 +201,44 @@
               <div class="stat-card-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
               <div class="stat-card-val" id="ovStatAreas">4</div>
               <div class="stat-card-lbl mono">Research Pillars</div>
+            </div>
+          </div>
+
+          <!-- Supabase Cloud Card -->
+          <div class="panel-box">
+            <div class="panel-box-header">
+              <div class="header-with-ico">
+                <svg class="panel-ico" style="stroke:#3ecf8e" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <div>
+                  <h3>Supabase Cloud Database</h3>
+                  <p class="muted-text">Project: <code class="mono code-pill">vxxoomirrwmfzepiyuis</code> &middot; Instant real-time updates</p>
+                </div>
+              </div>
+              <div class="header-actions" style="display:flex; gap:0.6rem;">
+                <button type="button" class="btn btn-supabase btn-sm" id="btnSyncFromOverview">
+                  <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <span>Sync to Supabase</span>
+                </button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnCopySqlOverview">Copy SQL Setup</button>
+              </div>
+            </div>
+
+            <div class="panel-box-body">
+              <div class="publish-status-grid">
+                <div class="status-item">
+                  <span class="mono muted-text">SUPABASE PROJECT</span>
+                  <p class="mono">vxxoomirrwmfzepiyuis</p>
+                </div>
+                <div class="status-item">
+                  <span class="mono muted-text">DATABASE TABLES</span>
+                  <p class="mono">public.site_content &middot; public.inbox_messages</p>
+                </div>
+                <div class="status-item">
+                  <span class="mono muted-text">SUPABASE STATUS</span>
+                  <p id="ovSupabaseStatus" class="mono"><span class="token-set">✔ Cloud Client Connected</span></p>
+                </div>
+              </div>
+              <div id="supabaseSyncLog" class="console-log mono" style="display:none;"></div>
             </div>
           </div>
 
@@ -458,6 +501,7 @@
               <p class="muted-text">Messages sent via the website's encrypted transmission form.</p>
             </div>
             <div class="header-actions">
+              <button type="button" id="btnRefreshInbox" class="btn btn-supabase btn-sm">Fetch from Supabase</button>
               <button type="button" id="btnExportInbox" class="btn btn-ghost btn-sm">Export JSON</button>
               <button type="button" id="btnClearInbox" class="btn btn-danger btn-sm">Clear All</button>
             </div>
@@ -473,6 +517,35 @@
               <h2>GitHub Cloud Settings &amp; Data Backups</h2>
               <p class="muted-text">Configure GitHub API access for 1-click cloud publishing, download backups, or import data.</p>
             </div>
+          </div>
+
+          <!-- Supabase Cloud Settings Box -->
+          <div class="panel-box">
+            <h3 class="panel-title mono" style="color:#3ecf8e">// SUPABASE REAL-TIME DATABASE</h3>
+            <p class="muted-text">
+              Connected to Supabase Project <code>vxxoomirrwmfzepiyuis</code>. Edits published to Supabase update the website instantaneously worldwide without triggering rebuilds.
+            </p>
+
+            <div class="form-row-2" style="margin-top:1rem;">
+              <div class="form-group">
+                <label>Supabase URL</label>
+                <input type="text" id="sbUrlDisplay" value="https://vxxoomirrwmfzepiyuis.supabase.co" readonly />
+              </div>
+              <div class="form-group">
+                <label>Publishable API Key</label>
+                <input type="password" id="sbKeyDisplay" value="sb_publishable_hqiY9qxz7ZwHiEM6qTEfRA_5N4VwfeN" readonly />
+              </div>
+            </div>
+
+            <div class="form-actions-inline">
+              <button type="button" id="btnSyncSupabaseSettings" class="btn btn-supabase btn-sm">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Sync Current Content to Supabase</span>
+              </button>
+              <button type="button" id="btnTestSupabase" class="btn btn-ghost btn-sm">Test Supabase Connection</button>
+              <button type="button" id="btnCopySql" class="btn btn-ghost btn-sm">Copy SQL Schema Script</button>
+            </div>
+            <div id="sbTestResult" class="mono test-result-box" style="display:none;"></div>
           </div>
 
           <!-- GitHub API Token Box -->
@@ -551,6 +624,10 @@
   <!-- Toast Notification -->
   <div id="adminToast" class="admin-toast mono"></div>
 
+  <!-- Supabase Cloud SDK & Connector -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
   <script src="admin.js"></script>
 </body>
 </html>
+

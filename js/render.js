@@ -150,16 +150,38 @@
     render(localDraft);
   }
 
-  window.contentReady = fetch(`data/content.json?v=${Date.now()}`, { cache: "no-store" })
-    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then((d) => {
-      if (!localDraft) {
-        window.SITE = d;
-        render(d);
+  // 1. Try Supabase cloud database first (real-time live content worldwide)
+  // 2. Fall back to local data/content.json
+  window.contentReady = (async () => {
+    let loadedData = null;
+
+    if (window.CUB_SUPABASE && typeof window.CUB_SUPABASE.fetchContent === "function") {
+      try {
+        const cloudData = await window.CUB_SUPABASE.fetchContent();
+        if (cloudData) {
+          loadedData = cloudData;
+        }
+      } catch (err) {
+        console.info("[Render] Supabase check notice:", err.message);
       }
-    })
-    .catch((e) => {
-      if (!localDraft) console.info("Using static fallback content:", e.message);
-    });
+    }
+
+    if (!loadedData) {
+      try {
+        const r = await fetch(`data/content.json?v=${Date.now()}`, { cache: "no-store" });
+        if (r.ok) {
+          loadedData = await r.json();
+        }
+      } catch (e) {
+        if (!localDraft) console.info("Using static fallback content:", e.message);
+      }
+    }
+
+    if (loadedData && !localDraft) {
+      window.SITE = loadedData;
+      render(loadedData);
+    }
+    return loadedData;
+  })();
 })();
 

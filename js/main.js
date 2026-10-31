@@ -213,7 +213,12 @@
     const targetEmail = window.SITE_EMAIL || "hasanuzzaman@cub.edu.bd";
     const body = `${msg}\n\n— ${name}\n${email}`;
 
-    // Store locally for the Admin Inbox viewer
+    // Send to Supabase cloud inbox
+    if (window.CUB_SUPABASE && typeof window.CUB_SUPABASE.sendMessage === "function") {
+      window.CUB_SUPABASE.sendMessage({ name, email, subject, message: msg });
+    }
+
+    // Store locally for fallback / offline Admin Inbox viewer
     try {
       const inbox = JSON.parse(localStorage.getItem("cub_inbox_messages") || "[]");
       inbox.unshift({

@@ -138,19 +138,24 @@
       if (raw) localDraft = JSON.parse(raw);
     } catch (_) {}
 
-    // 2. Fetch remote content
+    // 2. Try Supabase cloud content first
+    let cloudData = null;
+    if (window.CUB_SUPABASE && typeof window.CUB_SUPABASE.fetchContent === "function") {
+      try {
+        cloudData = await window.CUB_SUPABASE.fetchContent();
+      } catch (_) {}
+    }
+
+    // 3. Fallback to remote data/content.json
+    let fileData = null;
     try {
       const res = await fetch(`../data/content.json?v=${Date.now()}`, { cache: "no-store" });
       if (res.ok) {
-        const remoteData = await res.json();
-        // If local draft exists, use local draft but keep remote data as backup
-        state.data = localDraft || remoteData;
-      } else if (localDraft) {
-        state.data = localDraft;
+        fileData = await res.json();
       }
-    } catch (e) {
-      if (localDraft) state.data = localDraft;
-    }
+    } catch (_) {}
+
+    state.data = localDraft || cloudData || fileData;
 
     if (!state.data) {
       state.data = getDefaultFallbackData();
@@ -466,14 +471,36 @@
   }
 
   // ================= INBOX MESSAGES =================
-  function renderInboxMessages() {
+  async function renderInboxMessages() {
     const container = $("inboxContainer");
     if (!container) return;
 
-    let inbox = [];
+    let localMsgs = [];
     try {
-      inbox = JSON.parse(localStorage.getItem(INBOX_KEY) || "[]");
+      localMsgs = JSON.parse(localStorage.getItem(INBOX_KEY) || "[]");
     } catch (_) {}
+
+    let cloudMsgs = [];
+    if (window.CUB_SUPABASE && typeof window.CUB_SUPABASE.fetchMessages === "function") {
+      try {
+        const res = await window.CUB_SUPABASE.fetchMessages();
+        if (res && res.length) {
+          cloudMsgs = res.map((m) => ({
+            id: m.id,
+            isCloud: true,
+            name: m.name,
+            email: m.email,
+            subject: m.subject,
+            message: m.message,
+            date: new Date(m.created_at).toLocaleString(),
+            read: m.read
+          }));
+        }
+      } catch (_) {}
+    }
+
+    // Combine cloud and local messages, avoiding duplicates by text/email
+    const inbox = [...cloudMsgs, ...localMsgs];
 
     if (inbox.length === 0) {
       container.innerHTML = `
@@ -491,6 +518,7 @@
           <div class="inbox-meta">
             <strong>${escapeHtml(m.name || "Anonymous")}</strong> &middot; 
             <a href="mailto:${escapeHtml(m.email)}">${escapeHtml(m.email || "")}</a>
+            ${m.isCloud ? '<span class="status-chip mono" style="font-size:0.65rem; padding:0.15rem 0.5rem; margin-left:0.4rem;">SUPABASE CLOUD</span>' : ''}
           </div>
           <span class="inbox-date mono">${escapeHtml(m.date || "")}</span>
         </div>
@@ -505,10 +533,15 @@
 
     // Attach delete listeners
     $$(".btn-del-msg", container).forEach((btn) => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         const idx = +btn.dataset.idx;
-        inbox.splice(idx, 1);
-        localStorage.setItem(INBOX_KEY, JSON.stringify(inbox));
+        const target = inbox[idx];
+        if (target?.isCloud && window.CUB_SUPABASE) {
+          await window.CUB_SUPABASE.deleteMessage(target.id);
+        } else {
+          localMsgs = localMsgs.filter((_, i) => i !== idx - cloudMsgs.length);
+          localStorage.setItem(INBOX_KEY, JSON.stringify(localMsgs));
+        }
         renderInboxMessages();
         updateInboxBadge();
         showToast("Message removed.");
@@ -516,15 +549,24 @@
     });
   }
 
-  function updateInboxBadge() {
-    let inbox = [];
+  async function updateInboxBadge() {
+    let count = 0;
     try {
-      inbox = JSON.parse(localStorage.getItem(INBOX_KEY) || "[]");
+      const local = JSON.parse(localStorage.getItem(INBOX_KEY) || "[]");
+      count = local.length;
     } catch (_) {}
+
+    if (window.CUB_SUPABASE && typeof window.CUB_SUPABASE.fetchMessages === "function") {
+      try {
+        const cloud = await window.CUB_SUPABASE.fetchMessages();
+        if (cloud && cloud.length) count = Math.max(count, cloud.length);
+      } catch (_) {}
+    }
+
     const badge = $("inboxBadge");
     if (!badge) return;
-    if (inbox.length > 0) {
-      badge.textContent = inbox.length;
+    if (count > 0) {
+      badge.textContent = count;
       badge.style.display = "inline-block";
     } else {
       badge.style.display = "none";
@@ -712,6 +754,74 @@
     }
   }
 
+  // ================= SUPABASE ACTIONS =================
+  async function syncToSupabase() {
+    const logBox = $("supabaseSyncLog");
+    if (logBox) {
+      logBox.style.display = "block";
+      logBox.textContent = "[ SUPABASE SYNC ] Preparing content payload...\n";
+    }
+
+    if (!window.CUB_SUPABASE || !window.CUB_SUPABASE.client) {
+      if (logBox) logBox.textContent += "[ ERROR ] Supabase client SDK not loaded.\n";
+      alert("Supabase SDK is not loaded. Please check your internet connection.");
+      return;
+    }
+
+    const payload = harvestCurrentData();
+    try {
+      if (logBox) logBox.textContent += "[ TRANSMIT ] Sending payload to table 'public.site_content' (id: 'main')...\n";
+      await window.CUB_SUPABASE.saveContent(payload);
+      if (logBox) {
+        logBox.textContent += `[ SUCCESS ] Content successfully written to Supabase Cloud Database!\n`;
+        logBox.textContent += `[ LIVE ] Changes are active instantaneously for all website visitors!\n`;
+      }
+      showToast("🚀 Synced to Supabase! Website updated in real time.");
+    } catch (err) {
+      if (logBox) {
+        logBox.textContent += `[ FAILED ] ${err.message}\n`;
+        if (err.message.includes("schema cache") || err.message.includes("does not exist") || err.code === "PGRST205") {
+          logBox.textContent += `[ HINT ] The table 'public.site_content' has not been created yet in Supabase.\nClick 'Copy SQL Setup Script' in Settings and run it in the Supabase SQL Editor!\n`;
+        }
+      }
+      showToast(`❌ Supabase sync failed: ${err.message}`, 5000);
+    }
+  }
+
+  async function testSupabase() {
+    const resBox = $("sbTestResult");
+    if (!resBox) return;
+    resBox.style.display = "block";
+    resBox.className = "mono test-result-box";
+    resBox.textContent = "Connecting to Supabase (vxxoomirrwmfzepiyuis)...";
+
+    if (!window.CUB_SUPABASE) {
+      resBox.className = "mono test-result-box err";
+      resBox.textContent = "Error: Supabase connector module not loaded.";
+      return;
+    }
+
+    const res = await window.CUB_SUPABASE.testConnection();
+    if (res.ok) {
+      resBox.className = "mono test-result-box ok";
+      resBox.textContent = `✔ ${res.message}`;
+    } else {
+      resBox.className = "mono test-result-box err";
+      resBox.textContent = `❌ ${res.error}`;
+    }
+  }
+
+  async function copySqlSchema() {
+    try {
+      const res = await fetch("../supabase/schema.sql");
+      const sql = await res.text();
+      await navigator.clipboard.writeText(sql);
+      showToast("✔ SQL setup script copied! Paste into Supabase SQL Editor and click RUN.");
+    } catch (e) {
+      showToast("Could not copy SQL: " + e.message);
+    }
+  }
+
   // ================= EVENT BINDINGS =================
   function initEvents() {
     // Tab switching
@@ -736,6 +846,19 @@
     $("leadershipForm")?.addEventListener("submit", (e) => {
       e.preventDefault();
       saveDraftLocally();
+    });
+
+    // Supabase actions
+    $("syncSupabaseBtn")?.addEventListener("click", syncToSupabase);
+    $("btnSyncFromOverview")?.addEventListener("click", syncToSupabase);
+    $("btnSyncSupabaseSettings")?.addEventListener("click", syncToSupabase);
+    $("btnTestSupabase")?.addEventListener("click", testSupabase);
+    $("btnCopySqlOverview")?.addEventListener("click", copySqlSchema);
+    $("btnCopySql")?.addEventListener("click", copySqlSchema);
+    $("btnRefreshInbox")?.addEventListener("click", () => {
+      renderInboxMessages();
+      updateInboxBadge();
+      showToast("Inbox refreshed from Supabase.");
     });
 
     // Publish buttons
@@ -1087,3 +1210,4 @@
     initEvents();
   });
 })();
+
