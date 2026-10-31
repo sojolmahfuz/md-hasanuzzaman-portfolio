@@ -1,0 +1,136 @@
+{
+  "profile": {
+    "name": "Md. Hasanuzzaman",
+    "title": "Head of the Department",
+    "department": "Department of Computer Science & Engineering (CSE)",
+    "university": "Canadian University of Bangladesh",
+    "highestDegree": "Ph.D. in progress",
+    "statusText": "SYSTEM ONLINE · CSE DEPT. HEAD",
+    "heroDesc": "Head of the Department of **Computer Science & Engineering** at the **Canadian University of Bangladesh**. Educator and researcher securing the networks that connect our world — from protocols and infrastructure to the data flowing through them.",
+    "roles": [
+      "Head of the Department, CSE",
+      "Cyber Security Researcher",
+      "Network Security Specialist",
+      "Computer Networking Educator",
+      "Data Security Enthusiast"
+    ],
+    "photo": "Hasan.jpg",
+    "about": [
+      "**Md. Hasanuzzaman** serves as the **Head of the Department of Computer Science & Engineering (CSE)** at the Canadian University of Bangladesh (CUB), where he leads academic programs, curriculum development and faculty initiatives that prepare students for the rapidly evolving technology landscape.",
+      "Educated in both Bangladesh and Canada, he earned his **B.Sc. from Khulna University** and his **M.Sc. in Information Technology from the University of Waterloo, Canada**. He is currently pursuing his **Ph.D.**, deepening his work at the intersection of networking and security.",
+      "His research focuses on **Computer Networking, Cyber Security, Network Security and Data Security**, with published work spanning mobile IoT architectures for smart cities and intelligent energy systems."
+    ],
+    "email": "hasanuzzaman@cub.edu.bd",
+    "phone": "+8801322077218",
+    "scholar": "https://scholar.google.com/citations?user=aX7wNF0AAAAJ&hl=en",
+    "office": "Dept. of CSE, Canadian University of Bangladesh, Dhaka"
+  },
+  "research": [
+    {
+      "title": "Computer Networking",
+      "icon": "network",
+      "desc": "Network architecture, protocols, routing and performance — designing reliable, scalable infrastructure including mobile IoT and smart-city systems.",
+      "tags": ["Protocols", "IoT", "Wireless"]
+    },
+    {
+      "title": "Cyber Security",
+      "icon": "shield",
+      "desc": "Threat analysis, vulnerability assessment and defensive strategies that protect systems, organisations and people against evolving cyber attacks.",
+      "tags": ["Threat Intel", "Defense", "Forensics"]
+    },
+    {
+      "title": "Network Security",
+      "icon": "monitor",
+      "desc": "Intrusion detection, firewalls, secure communication and traffic analysis to safeguard data in transit across complex network environments.",
+      "tags": ["IDS/IPS", "Firewalls", "VPN"]
+    },
+    {
+      "title": "Data Security",
+      "icon": "lock",
+      "desc": "Cryptography, access control and privacy-preserving techniques ensuring the confidentiality, integrity and availability of critical data.",
+      "tags": ["Cryptography", "Privacy", "Access Control"]
+    }
+  ],
+  "education": [
+    {
+      "badge": "IN PROGRESS",
+      "current": true,
+      "degree": "Doctor of Philosophy (Ph.D.)",
+      "org": "Doctoral Research",
+      "desc": "Advancing research in computer networking and security."
+    },
+    {
+      "badge": "MASTER'S",
+      "current": false,
+      "degree": "M.Sc. in Information Technology",
+      "org": "University of Waterloo, Canada 🇨🇦",
+      "desc": "Graduate studies at one of Canada's leading institutions for computing and technology."
+    },
+    {
+      "badge": "BACHELOR'S",
+      "current": false,
+      "degree": "Bachelor of Science (B.Sc.)",
+      "org": "Khulna University (KU), Bangladesh 🇧🇩",
+      "desc": "Undergraduate foundation in computing and engineering principles."
+    }
+  ],
+  "leadership": {
+    "intro": "As Head of the Department at the Canadian University of Bangladesh, he guides the department's academic vision — shaping an industry-relevant curriculum, mentoring faculty and students, and fostering a culture of research and innovation in computing.",
+    "items": [
+      "Academic Program & Curriculum Leadership",
+      "Faculty Development & Mentorship",
+      "Student Research Supervision",
+      "Teaching Networking & Security"
+    ]
+  },
+  "metrics": {
+    "citations": 6,
+    "hIndex": 1,
+    "i10Index": 0,
+    "perYear": [
+      { "year": "2022", "count": 3 },
+      { "year": "2023", "count": 1 },
+      { "year": "2024", "count": 1 },
+      { "year": "2025", "count": 1 }
+    ]
+  },
+  "publications": [
+    {
+      "year": "2021",
+      "title": "Analysis of Different Mobile IoT Models in Smart City Planning: A Technical Investigation of Software & Hardware Architecture",
+      "authors": "M.A. Kabir, M.S.A. Khan, K.M. Kadir, C.Y. Choon, F. Jefreen, **M. Hasanuzzaman**",
+      "venue": "IEEE 12th Annual Ubiquitous Computing, Electronics & Mobile Communication Conference (UEMCON)",
+      "type": "Conference",
+      "citations": 5,
+      "link": ""
+    },
+    {
+      "year": "2022",
+      "title": "A Stand-Alone Photovoltaic DC Mini-Grid with Novel Semi-Active Hybrid Energy Storage System for Isolated Areas",
+      "authors": "M.P. Sikder, M.S.A. Khan, M.M. Rahman, M.J. Hosain, **M. Hasanuzzaman**, et al.",
+      "venue": "AIP Conference Proceedings 2640 (1), 020035",
+      "type": "Proceedings",
+      "citations": 1,
+      "link": ""
+    },
+    {
+      "year": "2021",
+      "title": "Real-Time Control System Adopted to Energy Storage for Smart Grid Low Wind Applications: A Part of Distributed Renewables in Smart City",
+      "authors": "M.D.S.A. Khan, Y.C. Chang, M.A. Kabir, M.I. Romli, C.A. Vaithilingam, J. Hosain, et al.",
+      "venue": "Journal of Electronic Science and Technology 19 (4), 379–389",
+      "type": "Journal",
+      "citations": 0,
+      "link": ""
+    },
+    {
+      "year": "",
+      "title": "State of Charge Analysis of Super-Capacitor Bank for 40F and 400F at Small Scale Off-Grid Energy Storage",
+      "authors": "M.D.S.A. Khan, M.P. Sikder, M.D.K. Alam, M.N. Hasan, M.A. Islam, S. Mahmud, et al.",
+      "venue": "Research Article",
+      "type": "Article",
+      "citations": 0,
+      "link": ""
+    }
+  ]
+}
+

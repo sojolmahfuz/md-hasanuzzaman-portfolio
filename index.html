@@ -57,13 +57,13 @@
     <section id="home" class="hero">
       <div class="container hero-grid">
         <div class="hero-content">
-          <div class="status-pill mono"><span class="dot"></span> SYSTEM ONLINE · CSE DEPT. HEAD</div>
+          <div class="status-pill mono"><span class="dot"></span> <span id="statusText">SYSTEM ONLINE · CSE DEPT. HEAD</span></div>
           <h1 class="hero-title">
             <span class="hello">Hello, I'm</span>
-            <span class="name glitch" data-text="Md. Hasanuzzaman">Md. Hasanuzzaman</span>
+            <span class="name glitch" id="heroName" data-text="Md. Hasanuzzaman">Md. Hasanuzzaman</span>
           </h1>
           <p class="hero-role mono">&gt; <span id="typed"></span><span class="caret">|</span></p>
-          <p class="hero-desc">
+          <p class="hero-desc" id="heroDesc">
             Head of the Department of <strong>Computer Science &amp; Engineering</strong> at the
             <strong>Canadian University of Bangladesh</strong>. Educator and researcher securing the
             networks that connect our world — from protocols and infrastructure to the data flowing through them.
@@ -75,9 +75,9 @@
             <a href="#contact" class="btn btn-ghost">Get in Touch</a>
           </div>
           <div class="hero-stats">
-            <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">Publications</span></div>
-            <div class="stat"><span class="stat-num" data-count="6">0</span><span class="stat-label">Citations</span></div>
-            <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">Research Areas</span></div>
+            <div class="stat"><span class="stat-num" id="statPubs" data-count="4">0</span><span class="stat-label">Publications</span></div>
+            <div class="stat"><span class="stat-num" id="statCites" data-count="6">0</span><span class="stat-label">Citations</span></div>
+            <div class="stat"><span class="stat-num" id="statAreas" data-count="4">0</span><span class="stat-label">Research Areas</span></div>
           </div>
         </div>
 
@@ -87,7 +87,7 @@
             <div class="ring ring-2"></div>
             <div class="ring ring-3"></div>
             <div class="photo-wrap">
-              <img src="Hasan.jpg" alt="Portrait of Md. Hasanuzzaman" />
+              <img src="Hasan.jpg" id="heroPhoto" alt="Portrait of Md. Hasanuzzaman" />
               <div class="scan-line"></div>
             </div>
             <div class="float-tag tag-1 mono"><span class="ico">🛡</span> Cyber Security</div>
@@ -109,6 +109,7 @@
 
         <div class="about-grid">
           <div class="about-text reveal">
+            <div id="aboutParas">
             <p>
               <strong>Md. Hasanuzzaman</strong> serves as the <strong>Head of the Department of Computer Science &amp; Engineering (CSE)</strong>
               at the Canadian University of Bangladesh (CUB), where he leads academic programs, curriculum development and
@@ -124,9 +125,11 @@
               with published work spanning mobile IoT architectures for smart cities and intelligent energy systems.
             </p>
 
+            </div>
+
             <div class="terminal">
               <div class="terminal-bar"><i></i><i></i><i></i><span class="mono">hasanuzzaman@cub:~</span></div>
-              <pre class="mono"><span class="t-p">$</span> whoami
+              <pre class="mono" id="terminalOut"><span class="t-p">$</span> whoami
 <span class="t-o">{
   "name"     : "Md. Hasanuzzaman",
   "position" : "Head of the Department, CSE",
@@ -138,7 +141,7 @@
             </div>
           </div>
 
-          <div class="about-cards">
+          <div class="about-cards" id="infoCards">
             <div class="info-card reveal">
               <div class="info-ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
               <div><h4>Position</h4><p>Head of the Department, CSE</p></div>
@@ -169,7 +172,7 @@
           <p class="section-sub">Core domains driving his teaching, supervision and scholarly work.</p>
         </div>
 
-        <div class="research-grid">
+        <div class="research-grid" id="researchGrid">
           <article class="r-card tilt reveal">
             <div class="r-num mono">R.01</div>
             <div class="r-ico">
@@ -221,7 +224,7 @@
           <h2>Academic <span class="grad">Journey</span></h2>
         </div>
 
-        <div class="timeline">
+        <div class="timeline" id="timeline">
           <div class="tl-item reveal">
             <div class="tl-node pulse"></div>
             <div class="tl-card">
@@ -260,9 +263,9 @@
           <div class="lead-left">
             <span class="section-tag mono">04 // leadership</span>
             <h2>Leading the <span class="grad">Department of CSE</span></h2>
-            <p>As Head of the Department at the Canadian University of Bangladesh, he guides the department's academic vision — shaping an industry-relevant curriculum, mentoring faculty and students, and fostering a culture of research and innovation in computing.</p>
+            <p id="leadIntro">As Head of the Department at the Canadian University of Bangladesh, he guides the department's academic vision — shaping an industry-relevant curriculum, mentoring faculty and students, and fostering a culture of research and innovation in computing.</p>
           </div>
-          <div class="lead-right">
+          <div class="lead-right" id="leadItems">
             <div class="lead-item"><span class="mono">01</span>Academic Program &amp; Curriculum Leadership</div>
             <div class="lead-item"><span class="mono">02</span>Faculty Development &amp; Mentorship</div>
             <div class="lead-item"><span class="mono">03</span>Student Research Supervision</div>
@@ -281,7 +284,7 @@
           <p class="section-sub">Indexed on Google Scholar.</p>
         </div>
 
-        <div class="metrics reveal">
+        <div class="metrics reveal" id="metrics">
           <div class="metric"><span class="m-val" data-count="6">0</span><span class="m-lbl mono">Citations</span></div>
           <div class="metric"><span class="m-val" data-count="1">0</span><span class="m-lbl mono">h-index</span></div>
           <div class="metric"><span class="m-val" data-count="0">0</span><span class="m-lbl mono">i10-index</span></div>
@@ -296,7 +299,7 @@
           </div>
         </div>
 
-        <div class="pub-list">
+        <div class="pub-list" id="pubList">
           <article class="pub reveal">
             <div class="pub-year mono">2021</div>
             <div class="pub-body">
@@ -357,7 +360,7 @@
         </div>
 
         <div class="contact-grid">
-          <div class="contact-info reveal">
+          <div class="contact-info reveal" id="contactInfo">
             <a class="c-item" href="mailto:hasanuzzaman@cub.edu.bd">
               <div class="c-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
               <div><span class="mono">EMAIL</span><p>hasanuzzaman@cub.edu.bd</p></div>
@@ -407,12 +410,13 @@
     <div class="container footer-inner">
       <div class="brand"><span class="brand-mark">MH</span><span class="brand-text">Md. Hasanuzzaman</span></div>
       <p class="mono">Head of the Department · CSE · Canadian University of Bangladesh</p>
-      <p class="mono small">© <span id="year"></span> Md. Hasanuzzaman. All rights reserved.</p>
+      <p class="mono small">© <span id="year"></span> <span id="footName">Md. Hasanuzzaman</span>. All rights reserved. · <a href="admin/" class="admin-link">Admin</a></p>
     </div>
   </footer>
 
   <button id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
+  <script src="js/render.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

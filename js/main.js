@@ -31,7 +31,7 @@
     $("#loader").classList.add("hide");
     document.body.classList.remove("loading");
     startTyping();
-    countUp($$(".hero-stats .stat-num"));
+    contentReady.then(() => countUp($$(".hero-stats .stat-num")));
   };
   window.addEventListener("load", () => setTimeout(finishLoading, reduceMotion ? 0 : 1900));
   setTimeout(finishLoading, 4500); // safety net if external assets are slow
@@ -51,11 +51,13 @@
     const el = $("#typed");
     let r = 0, c = 0, deleting = false;
     const tick = () => {
-      const word = roles[r];
+      const list = window.SITE?.profile?.roles?.length ? window.SITE.profile.roles : roles;
+      if (r >= list.length) r = 0;
+      const word = list[r];
       el.textContent = word.slice(0, c);
       let delay = deleting ? 35 : 75;
       if (!deleting && c === word.length) { delay = 1800; deleting = true; }
-      else if (deleting && c === 0) { deleting = false; r = (r + 1) % roles.length; delay = 350; }
+      else if (deleting && c === 0) { deleting = false; r = (r + 1) % list.length; delay = 350; }
       c += deleting ? -1 : 1;
       setTimeout(tick, delay);
     };
@@ -201,16 +203,33 @@
     });
   }
 
-  /* ---------- Contact form → mailto ---------- */
+  /* ---------- Contact form → mailto & local inbox ---------- */
   $("#contactForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const name = $("#fname").value.trim();
     const email = $("#femail").value.trim();
     const subject = $("#fsubject").value.trim();
     const msg = $("#fmsg").value.trim();
+    const targetEmail = window.SITE_EMAIL || "hasanuzzaman@cub.edu.bd";
     const body = `${msg}\n\n— ${name}\n${email}`;
-    window.location.href = `mailto:hasanuzzaman@cub.edu.bd?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    toast("✔ Opening your mail client...");
+
+    // Store locally for the Admin Inbox viewer
+    try {
+      const inbox = JSON.parse(localStorage.getItem("cub_inbox_messages") || "[]");
+      inbox.unshift({
+        id: "msg_" + Date.now(),
+        name,
+        email,
+        subject,
+        message: msg,
+        date: new Date().toLocaleString(),
+        read: false
+      });
+      localStorage.setItem("cub_inbox_messages", JSON.stringify(inbox.slice(0, 100)));
+    } catch (_) {}
+
+    window.location.href = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    toast("✔ Message stored & opening email client...");
     e.target.reset();
   });
 

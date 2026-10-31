@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Console | Md. Hasanuzzaman Portfolio</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2305070f'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%2300f0ff' font-family='monospace' font-weight='700'>MH</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ================= AUTH LOGIN SCREEN ================= -->
+  <div id="authScreen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-badge mono"><span class="dot pulse-green"></span> RESTRICTED ACCESS // LEVEL 4</div>
+        <div class="auth-logo">
+          <span class="auth-mark">MH</span>
+          <div>
+            <h2>SECURITY CONSOLE</h2>
+            <p class="mono small-muted">Canadian University of Bangladesh · CSE</p>
+          </div>
+        </div>
+      </div>
+
+      <form id="loginForm" class="auth-form" autocomplete="off">
+        <div class="input-group">
+          <label for="loginEmail" class="mono">AUTHORIZED EMAIL</label>
+          <div class="input-wrap">
+            <svg class="input-ico" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M9 4v16"/></svg>
+            <input type="email" id="loginEmail" required placeholder="hasanuzzaman@cub.edu.bd" value="hasanuzzaman@cub.edu.bd" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="loginPassword" class="mono">ENCRYPTED PASSPHRASE</label>
+          <div class="input-wrap">
+            <svg class="input-ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="loginPassword" required placeholder="Enter master passphrase" autofocus />
+            <button type="button" id="togglePassBtn" class="pass-toggle" aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="loginError" class="auth-error mono" style="display: none;"></div>
+
+        <button type="submit" id="loginSubmitBtn" class="btn btn-primary full">
+          <span>Authenticate &amp; Unlock Console</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+
+        <div class="auth-footer mono">
+          <span>Target: Head of CSE Portfolio Console</span>
+          <a href="../index.html" class="back-link">&larr; Return to Live Site</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ADMIN DASHBOARD ================= -->
+  <div id="adminApp" class="admin-app" style="display: none;">
+    
+    <!-- Top Bar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <div class="brand">
+          <span class="brand-mark">MH</span>
+          <span class="brand-title">Console<span class="accent">_OS</span></span>
+        </div>
+        <span class="topbar-status mono"><span class="dot"></span> LIVE // AUTHENTICATED</span>
+      </div>
+
+      <div class="topbar-actions">
+        <a href="../index.html" target="_blank" class="btn btn-ghost btn-sm" title="Open website in new tab">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>View Site</span>
+        </a>
+
+        <button type="button" id="saveDraftBtn" class="btn btn-ghost btn-sm" title="Save preview locally">
+          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          <span>Save Draft</span>
+        </button>
+
+        <button type="button" id="publishGithubBtn" class="btn btn-primary btn-sm" title="Commit to GitHub repo and deploy">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <span>Publish to GitHub</span>
+        </button>
+
+        <button type="button" id="logoutBtn" class="btn btn-danger btn-sm" title="End secure session">
+          <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Logout</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+      <!-- Sidebar Nav -->
+      <aside class="admin-sidebar">
+        <div class="sidebar-user">
+          <div class="user-avatar">
+            <img id="sidebarAvatar" src="../Hasan.jpg" alt="Admin Avatar" />
+          </div>
+          <div class="user-info">
+            <strong id="sidebarUserName">Md. Hasanuzzaman</strong>
+            <span class="mono">Head of CSE, CUB</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-menu">
+          <button class="nav-item active" data-tab="tab-overview">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Overview &amp; Sync</span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-profile">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile &amp; Bio</span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-research">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span>Research Interests</span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-education">
+            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            <span>Education Timeline</span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-leadership">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Leadership &amp; Dept</span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-publications">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span>Scholar &amp; Papers</span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-inbox">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Inbox Messages</span>
+            <span id="inboxBadge" class="badge-pill" style="display:none">0</span>
+          </button>
+
+          <button class="nav-item" data-tab="tab-settings">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>GitHub &amp; Backups</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer mono">
+          <small>CUB CSE Admin v1.0</small>
+          <small class="muted-text">Session: Encrypted</small>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="admin-main">
+
+        <!-- ================= TAB: OVERVIEW ================= -->
+        <section id="tab-overview" class="tab-pane active">
+          <div class="pane-header">
+            <div>
+              <h2>System Overview &amp; Cloud Sync</h2>
+              <p class="muted-text">Monitor website parameters, sync status, and trigger live updates to GitHub Pages.</p>
+            </div>
+            <div class="header-badges">
+              <span id="cloudStatusBadge" class="status-chip mono"><span class="dot"></span> Local Sync Active</span>
+            </div>
+          </div>
+
+          <!-- Quick Stat Cards -->
+          <div class="stat-cards-grid">
+            <div class="stat-card">
+              <div class="stat-card-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+              <div class="stat-card-val" id="ovStatPubs">4</div>
+              <div class="stat-card-lbl mono">Publications</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-ico"><svg viewBox="0 0 24 24"><path d="M12 20v-6M6 20V10M18 20V4"/></svg></div>
+              <div class="stat-card-val" id="ovStatCites">6</div>
+              <div class="stat-card-lbl mono">Total Citations</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div class="stat-card-val" id="ovStatHIndex">1</div>
+              <div class="stat-card-lbl mono">h-index</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+              <div class="stat-card-val" id="ovStatAreas">4</div>
+              <div class="stat-card-lbl mono">Research Pillars</div>
+            </div>
+          </div>
+
+          <!-- GitHub Publishing Status Card -->
+          <div class="panel-box">
+            <div class="panel-box-header">
+              <div class="header-with-ico">
+                <svg class="panel-ico" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                <div>
+                  <h3>GitHub Pages Deployment Pipeline</h3>
+                  <p class="muted-text">Live Repo: <code class="mono code-pill">sojolmahfuz/md-hasanuzzaman-portfolio</code></p>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary" id="btnPublishFromOverview">
+                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                <span>Commit &amp; Publish Changes</span>
+              </button>
+            </div>
+
+            <div class="panel-box-body">
+              <div class="publish-status-grid">
+                <div class="status-item">
+                  <span class="mono muted-text">DEPLOYED ADDRESS</span>
+                  <p><a href="https://sojolmahfuz.github.io/md-hasanuzzaman-portfolio/" target="_blank" class="accent-link">https://sojolmahfuz.github.io/md-hasanuzzaman-portfolio/</a></p>
+                </div>
+                <div class="status-item">
+                  <span class="mono muted-text">TARGET FILE</span>
+                  <p class="mono">data/content.json (Branch: main)</p>
+                </div>
+                <div class="status-item">
+                  <span class="mono muted-text">GITHUB TOKEN STATUS</span>
+                  <p id="ovTokenStatus" class="mono"><span class="token-unset">Not Configured (Using Local Draft)</span></p>
+                </div>
+              </div>
+
+              <div id="publishProgress" class="console-log mono" style="display:none;"></div>
+            </div>
+          </div>
+
+          <!-- Quick Action Grid -->
+          <div class="quick-grid">
+            <div class="quick-card" onclick="document.querySelector('[data-tab=\'tab-profile\']').click()">
+              <div class="quick-ico">👤</div>
+              <h4>Update Biography &amp; Contacts</h4>
+              <p>Edit designation, contact phone, email, university and about paragraphs.</p>
+            </div>
+            <div class="quick-card" onclick="document.querySelector('[data-tab=\'tab-publications\']').click()">
+              <div class="quick-ico">📚</div>
+              <h4>Add New Research Paper</h4>
+              <p>Append newly published papers, update citations count and h-index.</p>
+            </div>
+            <div class="quick-card" onclick="document.querySelector('[data-tab=\'tab-research\']').click()">
+              <div class="quick-ico">🔬</div>
+              <h4>Modify Research Interests</h4>
+              <p>Customize domains: Cyber Security, Network Security, Data Security, etc.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TAB: PROFILE & HERO ================= -->
+        <section id="tab-profile" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h2>Personal Profile &amp; Hero Section</h2>
+              <p class="muted-text">Update identity, institutional role, contact channels and introductory text.</p>
+            </div>
+          </div>
+
+          <form id="profileForm" class="admin-form">
+            <div class="form-section">
+              <h3 class="form-section-title mono">// BASIC INFORMATION</h3>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Full Name</label>
+                  <input type="text" id="pName" required />
+                </div>
+                <div class="form-group">
+                  <label>Title / Academic Position</label>
+                  <input type="text" id="pTitle" placeholder="Head of the Department" required />
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Department</label>
+                  <input type="text" id="pDept" placeholder="Department of Computer Science & Engineering (CSE)" required />
+                </div>
+                <div class="form-group">
+                  <label>University / Institution</label>
+                  <input type="text" id="pUni" placeholder="Canadian University of Bangladesh" required />
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Highest Degree</label>
+                  <input type="text" id="pHighestDegree" placeholder="Ph.D. in progress" />
+                </div>
+                <div class="form-group">
+                  <label>Status Pill Badge Text</label>
+                  <input type="text" id="pStatusText" placeholder="SYSTEM ONLINE · CSE DEPT. HEAD" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Profile Photo URL or Path</label>
+                <div class="input-with-preview">
+                  <input type="text" id="pPhoto" placeholder="Hasan.jpg" />
+                  <input type="file" id="pPhotoFile" accept="image/*" style="display: none;" />
+                  <button type="button" class="btn btn-ghost btn-sm" onclick="document.getElementById('pPhotoFile').click()">Upload Image</button>
+                </div>
+                <small class="muted-text">Tip: Use <code>Hasan.jpg</code> or an external image link (e.g. Imgur, GitHub raw URL).</small>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3 class="form-section-title mono">// HERO BIO &amp; TYPING ROLES</h3>
+              <div class="form-group">
+                <label>Hero Summary (Supports **bold**)</label>
+                <textarea id="pHeroDesc" rows="3"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Rotating Roles (Typed text animation in Hero)</label>
+                <div id="rolesList" class="dynamic-list"></div>
+                <button type="button" id="btnAddRole" class="btn btn-ghost btn-sm">+ Add Role Title</button>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3 class="form-section-title mono">// ABOUT SECTION PARAGRAPHS</h3>
+              <div id="aboutList" class="dynamic-list"></div>
+              <button type="button" id="btnAddAboutPara" class="btn btn-ghost btn-sm">+ Add Paragraph</button>
+            </div>
+
+            <div class="form-section">
+              <h3 class="form-section-title mono">// CONTACT &amp; OFFICE CHANNELS</h3>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Official Email</label>
+                  <input type="email" id="pEmail" placeholder="hasanuzzaman@cub.edu.bd" required />
+                </div>
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="text" id="pPhone" placeholder="+8801322077218" />
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Google Scholar Profile URL</label>
+                  <input type="url" id="pScholar" placeholder="https://scholar.google.com/citations?user=..." />
+                </div>
+                <div class="form-group">
+                  <label>Office Address / Room</label>
+                  <input type="text" id="pOffice" placeholder="Dept. of CSE, Canadian University of Bangladesh, Dhaka" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save Profile Updates</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ================= TAB: RESEARCH ================= -->
+        <section id="tab-research" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h2>Research Interests &amp; Domains</h2>
+              <p class="muted-text">Curate research pillars displayed on the interactive 3D cards.</p>
+            </div>
+            <button type="button" id="btnAddResearch" class="btn btn-primary btn-sm">+ Add Research Area</button>
+          </div>
+
+          <div id="researchCardsContainer" class="cards-editor-grid"></div>
+        </section>
+
+        <!-- ================= TAB: EDUCATION ================= -->
+        <section id="tab-education" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h2>Academic Degrees &amp; Timeline</h2>
+              <p class="muted-text">Configure graduate, doctoral and undergraduate degrees in chronological order.</p>
+            </div>
+            <button type="button" id="btnAddEducation" class="btn btn-primary btn-sm">+ Add Degree</button>
+          </div>
+
+          <div id="educationListContainer" class="items-list-container"></div>
+        </section>
+
+        <!-- ================= TAB: LEADERSHIP ================= -->
+        <section id="tab-leadership" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h2>Department Leadership &amp; Initiatives</h2>
+              <p class="muted-text">Highlight departmental vision, program developments and student supervision pillars.</p>
+            </div>
+          </div>
+
+          <form id="leadershipForm" class="admin-form">
+            <div class="form-group">
+              <label>Leadership Overview Paragraph</label>
+              <textarea id="leadIntroInput" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Key Pillars &amp; Responsibilities</label>
+              <div id="leadPillarsList" class="dynamic-list"></div>
+              <button type="button" id="btnAddLeadPillar" class="btn btn-ghost btn-sm">+ Add Responsibility</button>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save Leadership Changes</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ================= TAB: PUBLICATIONS ================= -->
+        <section id="tab-publications" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h2>Google Scholar Metrics &amp; Publications</h2>
+              <p class="muted-text">Manage citation metrics, citation distribution chart and published literature.</p>
+            </div>
+            <button type="button" id="btnAddPublication" class="btn btn-primary btn-sm">+ Add Publication</button>
+          </div>
+
+          <div class="panel-box">
+            <h3 class="panel-title mono">// CITATION METRICS</h3>
+            <div class="form-row-3">
+              <div class="form-group">
+                <label>Total Citations</label>
+                <input type="number" id="metricCitations" min="0" />
+              </div>
+              <div class="form-group">
+                <label>h-index</label>
+                <input type="number" id="metricHIndex" min="0" />
+              </div>
+              <div class="form-group">
+                <label>i10-index</label>
+                <input type="number" id="metricI10Index" min="0" />
+              </div>
+            </div>
+
+            <label class="form-sublabel">Citations Per Year (Bar Chart Data)</label>
+            <div id="perYearList" class="per-year-editor"></div>
+            <button type="button" id="btnAddYearStat" class="btn btn-ghost btn-sm">+ Add Year Record</button>
+          </div>
+
+          <h3 class="section-divider mono">// PUBLICATIONS DIRECTORY</h3>
+          <div id="publicationsContainer" class="items-list-container"></div>
+        </section>
+
+        <!-- ================= TAB: INBOX ================= -->
+        <section id="tab-inbox" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h2>Inbound Contact Inquiries</h2>
+              <p class="muted-text">Messages sent via the website's encrypted transmission form.</p>
+            </div>
+            <div class="header-actions">
+              <button type="button" id="btnExportInbox" class="btn btn-ghost btn-sm">Export JSON</button>
+              <button type="button" id="btnClearInbox" class="btn btn-danger btn-sm">Clear All</button>
+            </div>
+          </div>
+
+          <div id="inboxContainer" class="inbox-list"></div>
+        </section>
+
+        <!-- ================= TAB: SETTINGS & BACKUP ================= -->
+        <section id="tab-settings" class="tab-pane">
+          <div class="pane-header">
+            <div>
+              <h2>GitHub Cloud Settings &amp; Data Backups</h2>
+              <p class="muted-text">Configure GitHub API access for 1-click cloud publishing, download backups, or import data.</p>
+            </div>
+          </div>
+
+          <!-- GitHub API Token Box -->
+          <div class="panel-box">
+            <h3 class="panel-title mono">// GITHUB PERSONAL ACCESS TOKEN (PAT)</h3>
+            <p class="muted-text">
+              To allow this admin console to push updates directly to your live GitHub repository without running terminal commands, provide a GitHub Personal Access Token with <code>repo</code> scope.
+            </p>
+
+            <div class="form-group">
+              <label>GitHub Personal Access Token (stored only in your browser)</label>
+              <div class="input-wrap">
+                <input type="password" id="ghTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx or github_pat_xxxx" />
+                <button type="button" id="toggleGhTokenBtn" class="pass-toggle">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-row-3">
+              <div class="form-group">
+                <label>Repository (owner/repo)</label>
+                <input type="text" id="ghRepoInput" value="sojolmahfuz/md-hasanuzzaman-portfolio" />
+              </div>
+              <div class="form-group">
+                <label>Target Branch</label>
+                <input type="text" id="ghBranchInput" value="main" />
+              </div>
+              <div class="form-group">
+                <label>Data Path</label>
+                <input type="text" id="ghPathInput" value="data/content.json" />
+              </div>
+            </div>
+
+            <div class="form-actions-inline">
+              <button type="button" id="btnSaveGhConfig" class="btn btn-primary btn-sm">Save Token Configuration</button>
+              <button type="button" id="btnTestGhConnection" class="btn btn-ghost btn-sm">Test Connection</button>
+              <button type="button" id="btnClearGhToken" class="btn btn-danger btn-sm">Remove Token</button>
+            </div>
+            <div id="ghTestResult" class="mono test-result-box" style="display:none;"></div>
+          </div>
+
+          <!-- Data Backups & Export/Import -->
+          <div class="panel-box">
+            <h3 class="panel-title mono">// DATA BACKUPS &amp; RESTORE</h3>
+            <p class="muted-text">Export your current website content as a standalone JSON file, or restore from a previous backup.</p>
+
+            <div class="backup-actions">
+              <button type="button" id="btnDownloadJson" class="btn btn-ghost">
+                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                <span>Download content.json</span>
+              </button>
+
+              <button type="button" id="btnCopyJson" class="btn btn-ghost">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copy Raw JSON</span>
+              </button>
+
+              <label class="btn btn-ghost file-label">
+                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                <span>Import JSON Backup</span>
+                <input type="file" id="importJsonInput" accept=".json" style="display:none;" />
+              </label>
+
+              <button type="button" id="btnResetDefaults" class="btn btn-danger">
+                <span>Reset to Repository Defaults</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="adminToast" class="admin-toast mono"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

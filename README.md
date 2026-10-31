@@ -13,9 +13,17 @@ Futuristic personal portfolio website of **Md. Hasanuzzaman**, Head of the Depar
 - Publications & Google Scholar metrics
 - Contact
 
+## Admin Console
+- **Path:** `/admin/` (or accessible via the discreet "Admin" link in the footer)
+- Secure cryptographic authentication gate
+- Dynamic content management for Profile, Research, Education, Publications, Scholar metrics, and Leadership
+- 1-click cloud sync directly to GitHub Pages
+- Local inbox for contact form submissions
+
 ## Tech
-Pure HTML, CSS and vanilla JavaScript — no build step required.
+Pure HTML5, CSS3, vanilla JavaScript, and GitHub REST API integration — no external build tools or backend servers required.
 
 ## Contact
 - Email: hasanuzzaman@cub.edu.bd
 - Google Scholar: https://scholar.google.com/citations?user=aX7wNF0AAAAJ&hl=en
+
