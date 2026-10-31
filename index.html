@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Md. Hasanuzzaman | Head of CSE, Canadian University of Bangladesh</title>
+  <meta name="description" content="Official portfolio of Md. Hasanuzzaman, Head of the Department of Computer Science & Engineering, Canadian University of Bangladesh. Researcher in Computer Networking, Cyber Security, Network Security and Data Security." />
+  <meta name="keywords" content="Md Hasanuzzaman, Canadian University of Bangladesh, CUB, CSE, Head of Department, Cyber Security, Network Security, Computer Networking, Data Security" />
+  <meta name="author" content="Md. Hasanuzzaman" />
+  <meta property="og:title" content="Md. Hasanuzzaman | Head of CSE, CUB" />
+  <meta property="og:description" content="Computer Networking & Cyber Security researcher and academic leader." />
+  <meta property="og:image" content="Hasan.jpg" />
+  <meta name="theme-color" content="#05070f" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2305070f'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%2300f0ff' font-family='monospace' font-weight='700'>MH</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== Boot Loader ===== -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-box">
+      <div class="loader-logo">MH<span>.</span></div>
+      <pre id="bootText" class="mono"></pre>
+      <div class="loader-bar"><span></span></div>
+    </div>
+  </div>
+
+  <canvas id="network" aria-hidden="true"></canvas>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- ===== Navigation ===== -->
+  <header class="nav" id="nav">
+    <a href="#home" class="brand">
+      <span class="brand-mark">MH</span>
+      <span class="brand-text">Hasanuzzaman<span class="accent">_</span></span>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="https://scholar.google.com/citations?user=aX7wNF0AAAAJ&hl=en" target="_blank" rel="noopener" class="btn btn-sm btn-ghost nav-cta">Google Scholar</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="status-pill mono"><span class="dot"></span> SYSTEM ONLINE · CSE DEPT. HEAD</div>
+          <h1 class="hero-title">
+            <span class="hello">Hello, I'm</span>
+            <span class="name glitch" data-text="Md. Hasanuzzaman">Md. Hasanuzzaman</span>
+          </h1>
+          <p class="hero-role mono">&gt; <span id="typed"></span><span class="caret">|</span></p>
+          <p class="hero-desc">
+            Head of the Department of <strong>Computer Science &amp; Engineering</strong> at the
+            <strong>Canadian University of Bangladesh</strong>. Educator and researcher securing the
+            networks that connect our world — from protocols and infrastructure to the data flowing through them.
+          </p>
+          <div class="hero-actions">
+            <a href="#research" class="btn btn-primary">Explore Research
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">Publications</span></div>
+            <div class="stat"><span class="stat-num" data-count="6">0</span><span class="stat-label">Citations</span></div>
+            <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">Research Areas</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="holo-frame">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+            <div class="photo-wrap">
+              <img src="Hasan.jpg" alt="Portrait of Md. Hasanuzzaman" />
+              <div class="scan-line"></div>
+            </div>
+            <div class="float-tag tag-1 mono"><span class="ico">🛡</span> Cyber Security</div>
+            <div class="float-tag tag-2 mono"><span class="ico">⌬</span> Networking</div>
+            <div class="float-tag tag-3 mono"><span class="ico">🔐</span> Data Security</div>
+          </div>
+        </div>
+      </div>
+      <a href="#about" class="scroll-hint mono" aria-label="Scroll down"><span></span>scroll</a>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag mono">01 // about</span>
+          <h2>Academic Leader &amp; <span class="grad">Security Researcher</span></h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p>
+              <strong>Md. Hasanuzzaman</strong> serves as the <strong>Head of the Department of Computer Science &amp; Engineering (CSE)</strong>
+              at the Canadian University of Bangladesh (CUB), where he leads academic programs, curriculum development and
+              faculty initiatives that prepare students for the rapidly evolving technology landscape.
+            </p>
+            <p>
+              Educated in both Bangladesh and Canada, he earned his <strong>B.Sc. from Khulna University</strong> and his
+              <strong>M.Sc. in Information Technology from the University of Waterloo, Canada</strong>. He is currently pursuing his
+              <strong>Ph.D.</strong>, deepening his work at the intersection of networking and security.
+            </p>
+            <p>
+              His research focuses on <strong>Computer Networking, Cyber Security, Network Security and Data Security</strong>,
+              with published work spanning mobile IoT architectures for smart cities and intelligent energy systems.
+            </p>
+
+            <div class="terminal">
+              <div class="terminal-bar"><i></i><i></i><i></i><span class="mono">hasanuzzaman@cub:~</span></div>
+              <pre class="mono"><span class="t-p">$</span> whoami
+<span class="t-o">{
+  "name"     : "Md. Hasanuzzaman",
+  "position" : "Head of the Department, CSE",
+  "org"      : "Canadian University of Bangladesh",
+  "degree"   : ["PhD (in progress)", "M.Sc. IT", "B.Sc."],
+  "focus"    : ["networking", "cyber-security"]
+}</span>
+<span class="t-p">$</span> <span class="caret">▋</span></pre>
+            </div>
+          </div>
+
+          <div class="about-cards">
+            <div class="info-card reveal">
+              <div class="info-ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
+              <div><h4>Position</h4><p>Head of the Department, CSE</p></div>
+            </div>
+            <div class="info-card reveal">
+              <div class="info-ico"><svg viewBox="0 0 24 24"><path d="M12 2l9 4.5-9 4.5-9-4.5L12 2zM3 11l9 4.5 9-4.5M3 15.5L12 20l9-4.5"/></svg></div>
+              <div><h4>Institution</h4><p>Canadian University of Bangladesh</p></div>
+            </div>
+            <div class="info-card reveal">
+              <div class="info-ico"><svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c3 2 9 2 12 0v-5"/></svg></div>
+              <div><h4>Highest Degree</h4><p>Ph.D. in progress</p></div>
+            </div>
+            <div class="info-card reveal">
+              <div class="info-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M9 4v16"/></svg></div>
+              <div><h4>Email</h4><p><a href="mailto:hasanuzzaman@cub.edu.bd">hasanuzzaman@cub.edu.bd</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RESEARCH ===== -->
+    <section id="research" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag mono">02 // research_interests</span>
+          <h2>Securing the <span class="grad">Connected World</span></h2>
+          <p class="section-sub">Core domains driving his teaching, supervision and scholarly work.</p>
+        </div>
+
+        <div class="research-grid">
+          <article class="r-card tilt reveal">
+            <div class="r-num mono">R.01</div>
+            <div class="r-ico">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="10" r="4"/><circle cx="10" cy="36" r="4"/><circle cx="38" cy="36" r="4"/><circle cx="24" cy="26" r="3"/><path d="M24 14v9M21.5 28L13 33M26.5 28L35 33M14 36h20"/></svg>
+            </div>
+            <h3>Computer Networking</h3>
+            <p>Network architecture, protocols, routing and performance — designing reliable, scalable infrastructure including mobile IoT and smart-city systems.</p>
+            <ul class="chips mono"><li>Protocols</li><li>IoT</li><li>Wireless</li></ul>
+          </article>
+
+          <article class="r-card tilt reveal">
+            <div class="r-num mono">R.02</div>
+            <div class="r-ico">
+              <svg viewBox="0 0 48 48"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10l16-6z"/><path d="M17 24l5 5 9-10"/></svg>
+            </div>
+            <h3>Cyber Security</h3>
+            <p>Threat analysis, vulnerability assessment and defensive strategies that protect systems, organisations and people against evolving cyber attacks.</p>
+            <ul class="chips mono"><li>Threat Intel</li><li>Defense</li><li>Forensics</li></ul>
+          </article>
+
+          <article class="r-card tilt reveal">
+            <div class="r-num mono">R.03</div>
+            <div class="r-ico">
+              <svg viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="24" rx="3"/><path d="M16 40h16M24 32v8"/><path d="M14 20h4l3-6 4 12 3-6h6"/></svg>
+            </div>
+            <h3>Network Security</h3>
+            <p>Intrusion detection, firewalls, secure communication and traffic analysis to safeguard data in transit across complex network environments.</p>
+            <ul class="chips mono"><li>IDS/IPS</li><li>Firewalls</li><li>VPN</li></ul>
+          </article>
+
+          <article class="r-card tilt reveal">
+            <div class="r-num mono">R.04</div>
+            <div class="r-ico">
+              <svg viewBox="0 0 48 48"><rect x="10" y="20" width="28" height="22" rx="3"/><path d="M16 20v-6a8 8 0 0116 0v6"/><circle cx="24" cy="30" r="3"/><path d="M24 33v4"/></svg>
+            </div>
+            <h3>Data Security</h3>
+            <p>Cryptography, access control and privacy-preserving techniques ensuring the confidentiality, integrity and availability of critical data.</p>
+            <ul class="chips mono"><li>Cryptography</li><li>Privacy</li><li>Access Control</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EDUCATION ===== -->
+    <section id="education" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag mono">03 // education</span>
+          <h2>Academic <span class="grad">Journey</span></h2>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-item reveal">
+            <div class="tl-node pulse"></div>
+            <div class="tl-card">
+              <span class="tl-badge mono live">IN PROGRESS</span>
+              <h3>Doctor of Philosophy (Ph.D.)</h3>
+              <p class="tl-org">Doctoral Research</p>
+              <p>Advancing research in computer networking and security.</p>
+            </div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-node"></div>
+            <div class="tl-card">
+              <span class="tl-badge mono">MASTER'S</span>
+              <h3>M.Sc. in Information Technology</h3>
+              <p class="tl-org">University of Waterloo, Canada 🇨🇦</p>
+              <p>Graduate studies at one of Canada's leading institutions for computing and technology.</p>
+            </div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-node"></div>
+            <div class="tl-card">
+              <span class="tl-badge mono">BACHELOR'S</span>
+              <h3>Bachelor of Science (B.Sc.)</h3>
+              <p class="tl-org">Khulna University (KU), Bangladesh 🇧🇩</p>
+              <p>Undergraduate foundation in computing and engineering principles.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LEADERSHIP ===== -->
+    <section class="section leadership">
+      <div class="container">
+        <div class="lead-card reveal">
+          <div class="lead-left">
+            <span class="section-tag mono">04 // leadership</span>
+            <h2>Leading the <span class="grad">Department of CSE</span></h2>
+            <p>As Head of the Department at the Canadian University of Bangladesh, he guides the department's academic vision — shaping an industry-relevant curriculum, mentoring faculty and students, and fostering a culture of research and innovation in computing.</p>
+          </div>
+          <div class="lead-right">
+            <div class="lead-item"><span class="mono">01</span>Academic Program &amp; Curriculum Leadership</div>
+            <div class="lead-item"><span class="mono">02</span>Faculty Development &amp; Mentorship</div>
+            <div class="lead-item"><span class="mono">03</span>Student Research Supervision</div>
+            <div class="lead-item"><span class="mono">04</span>Teaching Networking &amp; Security</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PUBLICATIONS ===== -->
+    <section id="publications" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag mono">05 // publications</span>
+          <h2>Research <span class="grad">Output</span></h2>
+          <p class="section-sub">Indexed on Google Scholar.</p>
+        </div>
+
+        <div class="metrics reveal">
+          <div class="metric"><span class="m-val" data-count="6">0</span><span class="m-lbl mono">Citations</span></div>
+          <div class="metric"><span class="m-val" data-count="1">0</span><span class="m-lbl mono">h-index</span></div>
+          <div class="metric"><span class="m-val" data-count="0">0</span><span class="m-lbl mono">i10-index</span></div>
+          <div class="metric chart-metric">
+            <span class="m-lbl mono">Citations / Year</span>
+            <div class="bars">
+              <div class="bar" style="--p:1"><i>3</i><span>2022</span></div>
+              <div class="bar" style="--p:.333"><i>1</i><span>2023</span></div>
+              <div class="bar" style="--p:.333"><i>1</i><span>2024</span></div>
+              <div class="bar" style="--p:.333"><i>1</i><span>2025</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-list">
+          <article class="pub reveal">
+            <div class="pub-year mono">2021</div>
+            <div class="pub-body">
+              <h3>Analysis of Different Mobile IoT Models in Smart City Planning: A Technical Investigation of Software &amp; Hardware Architecture</h3>
+              <p class="pub-authors">M.A. Kabir, M.S.A. Khan, K.M. Kadir, C.Y. Choon, F. Jefreen, <b>M. Hasanuzzaman</b></p>
+              <p class="pub-venue mono">IEEE 12th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON)</p>
+            </div>
+            <div class="pub-meta"><span class="pub-type mono">Conference</span><span class="pub-cite mono">5 citations</span></div>
+          </article>
+
+          <article class="pub reveal">
+            <div class="pub-year mono">2022</div>
+            <div class="pub-body">
+              <h3>A Stand-Alone Photovoltaic DC Mini-Grid with Novel Semi-Active Hybrid Energy Storage System for Isolated Areas</h3>
+              <p class="pub-authors">M.P. Sikder, M.S.A. Khan, M.M. Rahman, M.J. Hosain, <b>M. Hasanuzzaman</b>, et al.</p>
+              <p class="pub-venue mono">AIP Conference Proceedings 2640 (1), 020035</p>
+            </div>
+            <div class="pub-meta"><span class="pub-type mono">Proceedings</span><span class="pub-cite mono">1 citation</span></div>
+          </article>
+
+          <article class="pub reveal">
+            <div class="pub-year mono">2021</div>
+            <div class="pub-body">
+              <h3>Real-Time Control System Adopted to Energy Storage for Smart Grid Low Wind Applications: A Part of Distributed Renewables in Smart City</h3>
+              <p class="pub-authors">M.D.S.A. Khan, Y.C. Chang, M.A. Kabir, M.I. Romli, C.A. Vaithilingam, J. Hosain, et al.</p>
+              <p class="pub-venue mono">Journal of Electronic Science and Technology 19 (4), 379–389</p>
+            </div>
+            <div class="pub-meta"><span class="pub-type mono">Journal</span></div>
+          </article>
+
+          <article class="pub reveal">
+            <div class="pub-year mono">—</div>
+            <div class="pub-body">
+              <h3>State of Charge Analysis of Super-Capacitor Bank for 40F and 400F at Small Scale Off-Grid Energy Storage</h3>
+              <p class="pub-authors">M.D.S.A. Khan, M.P. Sikder, M.D.K. Alam, M.N. Hasan, M.A. Islam, S. Mahmud, et al.</p>
+              <p class="pub-venue mono">Research Article</p>
+            </div>
+            <div class="pub-meta"><span class="pub-type mono">Article</span></div>
+          </article>
+        </div>
+
+        <div class="center reveal">
+          <a href="https://scholar.google.com/citations?user=aX7wNF0AAAAJ&hl=en" target="_blank" rel="noopener" class="btn btn-primary">
+            View Full Profile on Google Scholar
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag mono">06 // contact</span>
+          <h2>Establish a <span class="grad">Secure Connection</span></h2>
+          <p class="section-sub">For academic collaboration, research supervision or departmental enquiries.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <a class="c-item" href="mailto:hasanuzzaman@cub.edu.bd">
+              <div class="c-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+              <div><span class="mono">EMAIL</span><p>hasanuzzaman@cub.edu.bd</p></div>
+            </a>
+            <a class="c-item" href="tel:+8801322077218">
+              <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg></div>
+              <div><span class="mono">PHONE</span><p>+880 1322-077218</p></div>
+            </a>
+            <a class="c-item" href="https://scholar.google.com/citations?user=aX7wNF0AAAAJ&hl=en" target="_blank" rel="noopener">
+              <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.9V17h2V9L12 3zM5 13.2v4L12 21l7-3.8v-4L12 17l-7-3.8z"/></svg></div>
+              <div><span class="mono">GOOGLE SCHOLAR</span><p>scholar.google.com</p></div>
+            </a>
+            <div class="c-item">
+              <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M12 22s-8-7.5-8-13a8 8 0 0116 0c0 5.5-8 13-8 13z"/><circle cx="12" cy="9" r="3"/></svg></div>
+              <div><span class="mono">OFFICE</span><p>Dept. of CSE, Canadian University of Bangladesh, Dhaka</p></div>
+            </div>
+          </div>
+
+          <form class="contact-form reveal" id="contactForm">
+            <div class="form-head mono"><span class="dot"></span> encrypted_channel://compose</div>
+            <div class="field">
+              <input type="text" id="fname" required placeholder=" " />
+              <label for="fname">Your Name</label>
+            </div>
+            <div class="field">
+              <input type="email" id="femail" required placeholder=" " />
+              <label for="femail">Your Email</label>
+            </div>
+            <div class="field">
+              <input type="text" id="fsubject" required placeholder=" " />
+              <label for="fsubject">Subject</label>
+            </div>
+            <div class="field">
+              <textarea id="fmsg" rows="5" required placeholder=" "></textarea>
+              <label for="fmsg">Message</label>
+            </div>
+            <button type="submit" class="btn btn-primary full">Transmit Message
+              <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="brand"><span class="brand-mark">MH</span><span class="brand-text">Md. Hasanuzzaman</span></div>
+      <p class="mono">Head of the Department · CSE · Canadian University of Bangladesh</p>
+      <p class="mono small">© <span id="year"></span> Md. Hasanuzzaman. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
