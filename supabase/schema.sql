@@ -1,17 +1,24 @@
 -- =========================================================
--- Supabase Schema Setup for Md. Hasanuzzaman Portfolio
+-- Supabase Schema & Permissions Setup for Md. Hasanuzzaman Portfolio
 -- Run this in your Supabase Dashboard -> SQL Editor -> New Query -> Run
 -- =========================================================
 
--- 1. Create table for website dynamic content
+-- 1. Create table for dynamic website content
 CREATE TABLE IF NOT EXISTS public.site_content (
   id TEXT PRIMARY KEY,
   data JSONB NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- Grant table privileges to anon (public API key) and authenticated roles
+GRANT ALL ON TABLE public.site_content TO anon, authenticated;
+
 -- Enable Row Level Security (RLS)
 ALTER TABLE public.site_content ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if any to prevent conflicts
+DROP POLICY IF EXISTS "Public can view site content" ON public.site_content;
+DROP POLICY IF EXISTS "Allow update site content" ON public.site_content;
 
 -- Allow public read access so any visitor can view the portfolio
 CREATE POLICY "Public can view site content"
@@ -19,7 +26,7 @@ CREATE POLICY "Public can view site content"
   FOR SELECT
   USING (true);
 
--- Allow insert/update with publishable API key
+-- Allow insert/update with API key
 CREATE POLICY "Allow update site content"
   ON public.site_content
   FOR ALL
@@ -37,8 +44,16 @@ CREATE TABLE IF NOT EXISTS public.inbox_messages (
   read BOOLEAN DEFAULT false NOT NULL
 );
 
+-- Grant privileges for table and sequence
+GRANT ALL ON TABLE public.inbox_messages TO anon, authenticated;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated;
+
 -- Enable RLS on inbox
 ALTER TABLE public.inbox_messages ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if any
+DROP POLICY IF EXISTS "Allow public contact message insertion" ON public.inbox_messages;
+DROP POLICY IF EXISTS "Allow management of inbox messages" ON public.inbox_messages;
 
 -- Allow visitors to insert new messages via contact form
 CREATE POLICY "Allow public contact message insertion"
